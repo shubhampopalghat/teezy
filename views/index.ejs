@@ -1,0 +1,224 @@
+<%- include('./partials/header') %>
+
+    <% if(error.length>0){ %>
+        <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-red-500">
+            <span class="inline-block mt-1 mb-1 text-white">
+                <%= error %>
+            </span>
+        </div>
+        <% } %>
+            <% if(success.length>0){ %>
+                <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500">
+                    <span class="inline-block mt-1 mb-1 text-white">
+                        <%= success %>
+                    </span>
+                </div>
+                <% } %>
+
+
+                    <!-- Latest arrival section -->
+                    <div class="carousel-container">
+                        <div class="carousel-track" id="carouselTrack">
+                            <div class="carousel-item"><img src="images/latest section/latest1.webp" /></div>
+                            <div class="carousel-item"><img src="images/latest section/latest2.jpg" /></div>
+                            <div class="carousel-item"><img src="images/latest section/latest3.webp" /></div>
+                            <div class="carousel-item"><img src="images/latest section/latest4.webp" /></div>
+                            <div class="carousel-item"><img src="images/latest section/latest5.webp" /></div>
+                            <div class="carousel-item"><img src="images/latest section/latest6.webp" /></div>
+                            <div class="carousel-item"><img src="images/latest section/latest3.webp" /></div>
+                        </div>
+                        <div class="dots" id="dots"></div>
+                    </div>
+
+
+
+
+                    <!-- Hero section -->
+                    <section class="max-width-full mt-10 h-[70vh]">
+                        <div class="flex justify-between mx-16 mt-10">
+                            <div class="flex flex-col ">
+
+                                <div>
+                                    <h2 class="text-5xl font-regular"> Selling custom printed <br> T-Shirts <span
+                                            class="text-yellow-400"> Online </span> </h2>
+                                    <div class="w-[560px]">
+                                        <p class="mt-10 text-zinc-500"> It may sound easy, but there’s a lot that can go
+                                            wrong if you haven’t fully prepared an effective online store. To ensure the
+                                            success of your t-shirt printing. </p>
+                                    </div>
+                                </div>
+                                <div class="flex gap-5 mt-10">
+                                    <div> <img src="https://htmldemo.zcubethemes.com/printox/img/icon/like.png">
+                                        <h4 class="mt-7 text-2xl font-medium"> On-demand service </h4>
+                                        <div class="w-[300px]">
+                                            <p class="mt-3 text-zinc-500"> An experienced builder likely has to be one
+                                                of them. </p>
+                                        </div>
+                                    </div>
+                                    <div> <img src="https://htmldemo.zcubethemes.com/printox/img/icon/t-shirt.png"
+                                            alt="an-img-01">
+                                        <h4 class="mt-7 text-2xl font-medium"> Quality t-shirt design </h4>
+                                        <div class="w-[300px]">
+                                            <p class="mt-3 text-zinc-500"> An experienced builder likely has to be one
+                                                of them. </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class=""> <img class="h-[450px]" src="images/latest section/latest1.webp"> </div>
+                        </div>
+                    </section>
+
+
+
+
+
+                    <!-- product section  -->
+
+                    <section
+                        class="product-seciton mt-10 grid grid-cols-5 gap-y-20 items-center justify-center gap-x-3 p-5">
+                        <% products.forEach((product)=> { %>
+
+                            <div class="w-[290px] overflow-hidden relative transition-transform shadow-md ">
+                                <div class="relative w-full pt-[135%] product-img-wrapper ">
+
+                                    <img src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
+                                        alt="Product image"
+                                        class="product-img absolute top-0 left-0 w-full h-full object-cover">
+                                    <div class="absolute top-0 left-0 bg-green-500 text-white px-2 py-1 text-[9px]">
+                                        <%= product.tag %>
+                                    </div>
+                                    <div
+                                        class="absolute bottom-2 left-2 flex items-center bg-white px-2 py-1 rounded-md text-xs gap-1">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none"
+                                            viewBox="0 0 12 12" class="mr-1">
+                                            <path fill="#FFD232"
+                                                d="M5.58 1.15a.5.5 0 0 1 .84 0l1.528 2.363a.5.5 0 0 0 .291.212l2.72.722a.5.5 0 0 1 .26.799L9.442 7.429a.5.5 0 0 0-.111.343l.153 2.81a.5.5 0 0 1-.68.493L6.18 10.063a.5.5 0 0 0-.36 0l-2.625 1.014a.5.5 0 0 1-.68-.494l.153-2.81a.5.5 0 0 0-.11-.343L.781 5.246a.5.5 0 0 1 .26-.799l2.719-.722a.5.5 0 0 0 .291-.212L5.58 1.149Z">
+                                            </path>
+                                        </svg>
+                                        <span>4.6</span>
+                                    </div>
+                                </div>
+                                <div class="bg-white p-3 flex rounded-[5px]">
+                                    <div>
+                                        <h3 class="text-sm font-bold text-gray-800">
+                                            <%= product.name %>
+                                        </h3>
+                                        <div class="w-[230px]">
+                                            <h2 class="text-xs text-gray-600 mt-1">
+                                                <%= product.description %>
+                                            </h2>
+                                        </div>
+                                        <div class="flex items-center gap-2 mt-2">
+                                            <span class="text-sm font-medium text-black">
+                                                ₹<%= product.discountedPrice %> </span>
+                                            <span class="text-sm font-medium text-gray-400 line-through">₹1299</span>
+                                            <span class="text-sm font-medium text-green-600">
+                                                <%= product.discount %>% OFF
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <img src="images/wishList.svg" alt="wishlist" class="w-4 h-4 mt-1 cursor-pointer">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <% }); %>
+
+
+                    </section>
+
+
+                    <!-- form section  -->
+                    <section class="mt-10  flex items-center justify-center items-center">
+                        <div>
+                            <div class="flex justify-center  ">
+                                <h4 class=" text-sm px-4 py-1  rounded-full border-2 border-yellow-400"> Let's talk
+                                </h4>
+                            </div>
+                            <h2 class="text-5xl font-regular mt-7 items-center flex justify-center gap-4"> Make your
+                                custom <span class="text-yellow-400"> Order </span> </h2>
+
+
+                            <div class="  ">
+                                <div class="main-container w-[60vw]  ">
+                                    <form action="/register" method="post" class="mt-20">
+
+                                        <!-- First & Last Name -->
+                                        <div class="flex flex-col md:flex-row gap-5">
+                                            <!-- First Name -->
+                                            <div
+                                                class="w-full bg-zinc-200 flex rounded-2xl px-5 py-2 border-2 border-transparent items-center focus-within:border-zinc-500 transition duration-300">
+                                                <div class="w-full">
+                                                    <p class="text-[10px] text-zinc-600"> First name </p>
+                                                    <input
+                                                        class="text-sm w-full bg-transparent text-sm md:text-base text-zinc-500 outline-none"
+                                                        type="text" id="firstname" name="firstname" placeholder=""
+                                                        required minlength="3">
+                                                </div>
+                                                <img class="w-4" src="/images/user.svg" alt="icon">
+                                            </div>
+
+                                            <!-- Last Name -->
+                                            <div
+                                                class="w-full bg-zinc-200 flex rounded-2xl px-5 py-2 border-2 border-transparent items-center focus-within:border-zinc-500 transition duration-300">
+                                                <div class="w-full">
+                                                    <p class="text-[10px] text-zinc-600"> Last name </p>
+                                                    <input
+                                                        class="text-sm w-full bg-transparent text-sm md:text-base text-zinc-500 outline-none"
+                                                        type="text" id="lastname" name="lastname" placeholder=""
+                                                        required minlength="3">
+                                                </div>
+                                                <img class="w-4" src="/images/user.svg" alt="icon">
+                                            </div>
+                                        </div>
+
+                                        <!-- Email -->
+                                        <div class="mt-5">
+                                            <div
+                                                class="w-full bg-zinc-200 flex justify-between rounded-2xl px-5 py-2 border-2 border-transparent items-center focus-within:border-zinc-500 transition duration-300">
+                                                <div class="w-full">
+                                                    <p class="text-[10px] text-zinc-600"> Email </p>
+                                                    <input
+                                                        class="text-sm w-full text-sm md:text-base bg-transparent text-zinc-500 outline-none"
+                                                        type="email" id="email" name="email" placeholder=""
+                                                        pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$"
+                                                        title="Please enter a valid Gmail address (e.g., example@gmail.com)">
+                                                </div>
+                                                <img class="w-4" src="/images/mail.svg" alt="icon">
+                                            </div>
+                                        </div>
+
+                                        <!-- Password -->
+                                        <div class="mt-5">
+                                            <div
+                                                class="w-full bg-zinc-200 flex justify-between rounded-2xl px-5 py-2 border-2 border-transparent items-center focus-within:border-zinc-500 transition duration-300">
+                                                <div class="w-full flex items-center">
+                                                    <div class="flex-1">
+                                                        <p class="text-[10px] text-blue-400"> Write Comment </p>
+                                                        <textarea
+                                                            class=" text-sm w-full bg-transparent text-zinc-500 md:text-base outline-none"
+                                                            required> </textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
+                                <!-- Submit Button -->
+                                <div class="mt-10 items-center flex justify-center">
+                                    <button type="submit"
+                                        class=" py-2 px-5 text-white font-light bg-yellow-400  hover:bg-yellow-300 transition">
+                                        Submit Now
+                                    </button>
+                                </div>
+
+                                </form>
+                                </main>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <%- include('./partials/footer') %>

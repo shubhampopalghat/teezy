@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+
+<body class="font-['helvetica_now_display']">
+    <nav class="h-27 top-0 sticky w-full z-1000 ">
+        <div class="bg-white shadow-md top-0 z-100 sticky w-full flex justify-between fixed top-0 left-0 px-5 py-3">
+            <!-- left nav items contain logo home cart custom designs  -->
+            <div class="nav-left flex gap-10 items-center">
+                <div class="logo-title">
+                    <h1 class="text-xl font-semibold"> Teezy </h1>
+                </div>
+
+                <div class="flex gap-5">
+                    <a class="cursor-pointer" href="#"> Home </a>
+                    <a class="cursor-pointer" href="/test.html"> Cart </a>
+                    <a class="text-yellow-400 cursor-pointer" href="#"> Get Custom Designs </a>
+                    <a class=" cursor-pointer" href="#"> </a>
+                </div>
+            </div>
+            <!-- nav items right search bar , login , wishlist , cart -->
+            <div class=" flex gap-7 items-center">
+                <div class="searchBar flex gap-4 items-center rounded-md bg-zinc-200 px-4 py-2 " onfocus="">
+                    <img class="searchIcon " alt="searchIcon" src="/images/searchIcon.svg">
+                    <input placeholder="Search by products"
+                        class="font-light searchInput  bg-transparent outline-none text-sm" type="text"
+                        name="searchInput" id="searchInput">
+                </div>
+                <div class="flex gap-5">
+                    <span class=" text-zinc-300 font-light ">|</span>
+                    <a href="#" class=" ">Login</a>
+                    <a href="/wishlist"
+                        class="inline-flex items-center justify-center text-gray-800 ">
+                        <img src="/images/wishList.svg">
+                    </a>
+                    <a href="/cart" class="inline-flex items-center justify-center text-gray-800 ">
+                        <img class="w-3" src="/images/cartIcon.svg">
+                    </a>
+
+
+                </div>
+            </div>
+        </div>
+    </nav>
