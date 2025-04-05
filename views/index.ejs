@@ -48,14 +48,14 @@
                                     </div>
                                 </div>
                                 <div class="flex gap-5 mt-10">
-                                    <div> <img src="https://htmldemo.zcubethemes.com/printox/img/icon/like.png">
+                                    <div> <img  src="/images/icons//like.svg">
                                         <h4 class="mt-7 text-2xl font-medium"> On-demand service </h4>
                                         <div class="w-[300px]">
                                             <p class="mt-3 text-zinc-500"> An experienced builder likely has to be one
                                                 of them. </p>
                                         </div>
                                     </div>
-                                    <div> <img src="https://htmldemo.zcubethemes.com/printox/img/icon/t-shirt.png"
+                                    <div> <img class="w-[95px]"  src="/images/icons/tshirt.png"
                                             alt="an-img-01">
                                         <h4 class="mt-7 text-2xl font-medium"> Quality t-shirt design </h4>
                                         <div class="w-[300px]">
@@ -74,13 +74,12 @@
 
 
 
-                    <!-- product section  -->
-
                     <section
                         class="product-seciton mt-10 grid grid-cols-5 gap-y-20 items-center justify-center gap-x-3 p-5">
                         <% products.forEach((product)=> { %>
 
-                            <div class="w-[290px] overflow-hidden relative transition-transform shadow-md ">
+                            <a href="/shop/<%= product._id %>"
+                                class="cursor-pointer w-[290px] overflow-hidden relative transition-transform shadow-md ">
                                 <div class="relative w-full pt-[135%] product-img-wrapper ">
 
                                     <img src="data:image/jpeg;base64,<%= product.image.toString('base64') %>"
@@ -120,10 +119,11 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <img src="images/wishList.svg" alt="wishlist" class="w-4 h-4 mt-1 cursor-pointer">
+                                        <img src="images/wishList.svg" alt="wishlist"
+                                            class="w-4 h-4 mt-1 cursor-pointer">
                                     </div>
                                 </div>
-                            </div>
+                            </a>
 
                             <% }); %>
 

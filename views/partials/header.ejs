@@ -20,9 +20,9 @@
                 </div>
 
                 <div class="flex gap-5">
-                    <a class="cursor-pointer" href="#"> Home </a>
-                    <a class="cursor-pointer" href="/test.html"> Cart </a>
-                    <a class="text-yellow-400 cursor-pointer" href="#"> Get Custom Designs </a>
+                    <a class="cursor-pointer" href="/"> Home </a>
+                    <a class="cursor-pointer" href="/cart"> Cart </a>
+                    <a class="text-yellow-400 " href="/custom"> Get Custom Designs </a>
                     <a class=" cursor-pointer" href="#"> </a>
                 </div>
             </div>
@@ -36,12 +36,13 @@
                 </div>
                 <div class="flex gap-5">
                     <span class=" text-zinc-300 font-light ">|</span>
-                    <a href="#" class=" ">Login</a>
-                    <a href="/wishlist"
-                        class="inline-flex items-center justify-center text-gray-800 ">
+                    <% if (!isLoggedIn) { %> 
+                        <a href="/login" class=" ">Login</a>
+                        <% }; %>
+                    <a href="/wishlist" class="inline-flex items-center justify-center text-gray-800 ">
                         <img src="/images/wishList.svg">
                     </a>
-                    <a href="/cart" class="inline-flex items-center justify-center text-gray-800 ">
+                    <a href="/cart" class="mb-[2px] inline-flex items-center justify-center text-gray-800 ">
                         <img class="w-3" src="/images/cartIcon.svg">
                     </a>
 

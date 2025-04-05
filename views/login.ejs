@@ -1,53 +1,81 @@
 <%- include('./partials/header') %>
 
-    <% if(success.length>0){ %>
-        <div class="absolute top-5 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-blue-500">
+    <% if(error.length> 0){ %>
+        <div
+            class="flash-message fixed mt-5 top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-red-500 opacity-100 transition-opacity duration-500">
             <span class="inline-block mt-1 mb-1 text-white">
-                <%= success %>
+                <%= error %>
             </span>
         </div>
         <% } %>
 
+            <% if (success.length> 0) { %>
+                <div
+                    class="flash-message fixed mt-5 top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 p-3 rounded-md bg-green-500 opacity-100 transition-opacity duration-500">
+                    <span class="inline-block mt-1 mb-1 text-white">
+                        <%= success %>
+                    </span>
+                </div>
+                <% } %>
 
 
-        <div class="w-full h-screen flex px-20">
-                               <div class="w-1/2 flex items-center justify-center h-screen">
-                                   <div class="w-full px-32">
-                                       <h3 class="text-4xl">welcome to <span class="text-blue-400 font-semibold">Scatch</span>
-                                       </h3>
-                                       <h4 class="text-2xl mb-5">create your account</h4>
-                                       <form autocomplete="off" action="/users/register" method="post">
-                                           <input
-                                               class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                               type="text" placeholder="Full Name" name="fullname" minlength="3" required>
-                                           <input
-                                               class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                               type="email" placeholder="Email" name="email"  required>
-                                           <input
-                                               class="bg-zinc-100 block w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                               type="password" placeholder="Password" name="password" pattern="^(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$" title="Password must be at least 8 characters long, contain one lowercase letter, one number, and one special character (@$!%*?&)."required>
-                                           <input class="px-5 rounded-full py-3 mt-2 bg-blue-500 text-white" type="submit"
-                                               value="Create My Account" >
-                                       </form>
-                                   </div>
-                               </div>
-                               <div class="w-1/2 flex items-center justify-center h-screen">
-                                   <div class="w-full px-32">
-                                       <h4 class="text-2xl capitalize mb-5">login your account</h4>
-                                       <form autocomplete="off" action="/users/login" method="post">
-                                           <input
-                                               class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                               type="email" placeholder="Email" name="email">
-                                           <input
-                                               class="block bg-zinc-100 w-full px-3 py-2 border-[1px] rounded-md mb-3 border-zinc-200"
-                                               type="password" placeholder="Password" name="password">
-                                           <input class="px-5 block rounded-full py-3 mt-2 bg-blue-500 text-white"
-                                               type="submit" value="Login">
-                                       </form>
-                                   </div>
-                               </div>
-                           </div>
+                    <div class="main-container flex min-h-screen">
+
+                        <main class=" mx-auto my-auto md:mx-10 max-w-[90%] md:max-w-[35vw]">
+
+
+                            <h1 class="text-2xl md:text-4xl mt-1 text-zinc-500 font-semibold"> Login to your account
+                            </h1>
+                            <h2 class="text-zinc-500 text-base md:text-lg mt-2"> New user? create an account <a
+                                    href="/register" class=" cursor-pointer text-blue-500"> Register </a> </h2>
+
+                            <form class="mt-10" autocomplete="off" action="/users/login" method="post">
+
+                                <!-- Email -->
+                                <div class="mt-5">
+                                    <div
+                                        class="w-full bg-zinc-200 flex justify-between rounded-2xl px-5 py-2 border-2 border-transparent items-center focus-within:border-zinc-500 transition duration-300">
+                                        <div class="w-full">
+                                            <p class="text-[10px] text-zinc-600"> Email </p>
+                                            <input
+                                                class="text-sm w-full text-sm md:text-base bg-transparent text-zinc-500 outline-none"
+                                                type="email" id="email" name="email" placeholder="" required>
+                                        </div>
+                                        <img class="w-4" src="/images/mail.svg" alt="icon">
+                                    </div>
+                                </div>
+
+                                <!-- Password -->
+                                <div class="mt-5">
+                                    <div
+                                        class="w-full bg-zinc-200 flex justify-between rounded-2xl px-5 py-2 border-2 border-transparent items-center focus-within:border-zinc-500 transition duration-300">
+                                        <div class="w-full flex items-center">
+                                            <div class="flex-1">
+                                                <p class="text-[10px] text-zinc-600"> Password </p>
+                                                <input
+                                                    class="text-sm w-full bg-transparent text-zinc-500 md:text-base outline-none"
+                                                    type="password" id="password" name="password" placeholder=""
+                                                    required>
+                                            </div>
+                                            <img class="w-4 cursor-pointer" src="/images/eye-off.svg" alt="icon"
+                                                id="toggleIcon" onclick="togglePassword()">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="mt-10">
+                                    <button type="submit"
+                                        class="w-full p-4 text-white bg-blue-500 rounded-2xl hover:bg-blue-600 transition">
+                                        Login
+                                    </button>
+                                </div>
+
+                            </form>
+                        </main>
+                    </div>
 
 
 
-        <%- include('./partials/footer') %>
+<script src="script.js"> </script>
+                    <%- include('./partials/footer') %>

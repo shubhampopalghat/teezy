@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 
-const userSchema = mongoose.Schema ({
+const userSchema = mongoose.Schema({
     fullname: String,
     email: String,
     age: Number,
@@ -12,7 +12,14 @@ const userSchema = mongoose.Schema ({
             ref: "product",
             default: ['67e6600c4fd16dd4873d449c']
         }
-    ], 
+    ],
+    wishlist: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "product",
+            default: ['67e6600c4fd16dd4873d449c']
+        }
+    ],
     isadmin: Boolean,
     orders: {
         type: Array,
@@ -22,4 +29,4 @@ const userSchema = mongoose.Schema ({
     picture: String
 });
 
-module.exports = mongoose.model('user' , userSchema);
+module.exports = mongoose.model('user', userSchema);
