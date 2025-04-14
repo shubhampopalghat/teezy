@@ -8,7 +8,7 @@ import { useAuth } from '@/context/AuthContext';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { isAuthenticated, user } = useAuth(); // Use the auth context
+  const { isAuthenticated, user, logout } = useAuth(); // Add logout to the destructured values
 
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
@@ -107,10 +107,16 @@ const Navbar = () => {
                 className="border-none bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-sm"
               />
             </div>
-            {!isAuthenticated && (
+            {!isAuthenticated ? (
               <Link to="/login" className="py-2" onClick={() => setIsMenuOpen(false)}>
                 Login
               </Link>
+            ) : (
+              <>
+                <Link to="/account" className="py-2" onClick={() => setIsMenuOpen(false)}>
+                  My Account
+                </Link>
+              </>
             )}
           </nav>
         </div>

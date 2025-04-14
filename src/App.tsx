@@ -17,6 +17,8 @@ import Wishlist from "./pages/Wishlist";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Admin from "./pages/Admin";
+import Account from "./pages/Account";
+import AdminLogin from "./pages/AdminLogin";
 import NotFound from "./pages/NotFound";
 
 // Components
@@ -46,6 +48,8 @@ const App = () => (
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
                   <Route path="/admin" element={<Admin />} />
+                  <Route path="/admin-login" element={<AdminLogin />} />
+                  <Route path="/account" element={<Account />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </main>

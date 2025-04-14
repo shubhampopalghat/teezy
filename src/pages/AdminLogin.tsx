@@ -1,6 +1,6 @@
 
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
 import { Eye, EyeOff, Lock, Mail, ShieldCheck } from 'lucide-react';
 
-const Login = () => {
+const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -32,15 +32,27 @@ const Login = () => {
     try {
       setIsLoading(true);
       await login(email, password);
+      
+      // Check if the email contains "admin" to simulate admin login
+      // In a real app, this would use a proper role-based system
+      if (!email.includes('admin')) {
+        toast({
+          title: "Access Denied",
+          description: "This login page is for administrators only.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
       toast({
         title: "Success",
-        description: "You have been logged in successfully",
+        description: "Welcome back, administrator",
       });
-      navigate('/');
+      navigate('/admin');
     } catch (error) {
       toast({
         title: "Error",
-        description: "Invalid email or password",
+        description: "Invalid credentials",
         variant: "destructive",
       });
     } finally {
@@ -52,20 +64,25 @@ const Login = () => {
     <div className="container mx-auto px-4 py-12">
       <div className="max-w-md mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-display font-medium mb-2">Welcome Back</h1>
-          <p className="text-gray-600">Sign in to your account to continue</p>
+          <div className="flex justify-center mb-4">
+            <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center">
+              <ShieldCheck className="h-8 w-8 text-brand-yellow" />
+            </div>
+          </div>
+          <h1 className="text-3xl font-display font-medium mb-2">Administrator Login</h1>
+          <p className="text-gray-600">Sign in to access the admin dashboard</p>
         </div>
         
         <div className="bg-white rounded-xl shadow-md p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">Admin Email</Label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
                   id="email"
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder="Enter your admin email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="pl-10"
@@ -75,12 +92,7 @@ const Login = () => {
             </div>
             
             <div className="space-y-2">
-              <div className="flex justify-between">
-                <Label htmlFor="password">Password</Label>
-                <Link to="/forgot-password" className="text-xs text-brand-yellow hover:underline">
-                  Forgot password?
-                </Link>
-              </div>
+              <Label htmlFor="password">Password</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 h-4 w-4" />
                 <Input
@@ -107,24 +119,14 @@ const Login = () => {
               className="w-full bg-brand-yellow hover:bg-yellow-500 text-white"
               disabled={isLoading}
             >
-              {isLoading ? "Signing in..." : "Sign In"}
+              {isLoading ? "Signing in..." : "Sign In as Administrator"}
             </Button>
             
             <div className="text-center text-sm">
-              <span className="text-gray-600">Don't have an account?</span>{" "}
-              <Link to="/register" className="text-brand-yellow hover:underline font-medium">
-                Sign up
-              </Link>
-            </div>
-
-            <div className="mt-6 pt-6 border-t border-gray-200 text-center">
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <ShieldCheck className="h-4 w-4 text-gray-500" />
-                <span className="text-xs text-gray-500">Administrator Access</span>
-              </div>
-              <Link to="/admin-login" className="text-sm text-gray-600 hover:text-brand-yellow">
-                Login as Administrator
-              </Link>
+              <span className="text-gray-600">Not an administrator?</span>{" "}
+              <a href="/login" className="text-brand-yellow hover:underline font-medium">
+                Go to regular login
+              </a>
             </div>
           </form>
         </div>
@@ -133,4 +135,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdminLogin;
