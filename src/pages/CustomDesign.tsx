@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from 'react';
 import { useShop } from '@/context/ShopContext';
 import { toast } from "@/components/ui/use-toast";
@@ -11,7 +10,6 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { BrushIcon, Type, Image as ImageIcon, Palette, Save, ShoppingCart } from 'lucide-react';
 
 const CustomDesign = () => {
-  // Canvas and design state
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [tshirtColor, setTshirtColor] = useState('#ffffff');
@@ -25,10 +23,9 @@ const CustomDesign = () => {
   const [logoScale, setLogoScale] = useState(1);
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-  
+
   const { addToCart } = useShop();
-  
-  // Available options
+
   const colors = [
     { name: 'White', value: '#ffffff' },
     { name: 'Black', value: '#000000' },
@@ -39,7 +36,7 @@ const CustomDesign = () => {
     { name: 'Purple', value: '#9333ea' },
     { name: 'Gray', value: '#6b7280' },
   ];
-  
+
   const fonts = [
     { name: 'Helvetica', value: 'Helvetica, sans-serif' },
     { name: 'Times New Roman', value: 'Times New Roman, serif' },
@@ -47,10 +44,9 @@ const CustomDesign = () => {
     { name: 'Georgia', value: 'Georgia, serif' },
     { name: 'Verdana', value: 'Verdana, sans-serif' },
   ];
-  
+
   const sizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
-  
-  // Handle logo upload
+
   const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -69,8 +65,7 @@ const CustomDesign = () => {
     };
     reader.readAsDataURL(file);
   };
-  
-  // Canvas rendering logic
+
   const renderCanvas = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -78,13 +73,10 @@ const CustomDesign = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     
-    // Clear canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-    // Draw T-shirt shape
     drawTShirt(ctx, tshirtColor);
     
-    // Draw text if entered
     if (textInput) {
       ctx.font = `${fontSize}px ${fontFamily}`;
       ctx.fillStyle = textColor;
@@ -92,7 +84,6 @@ const CustomDesign = () => {
       ctx.fillText(textInput, canvas.width / 2, 150);
     }
     
-    // Draw logo if uploaded
     if (logoImage) {
       const img = new Image();
       img.onload = () => {
@@ -109,31 +100,28 @@ const CustomDesign = () => {
       img.src = logoImage;
     }
   };
-  
-  // Helper function to draw a simple t-shirt shape
+
   const drawTShirt = (ctx: CanvasRenderingContext2D, color: string) => {
     const width = ctx.canvas.width;
     const height = ctx.canvas.height;
     
-    // T-shirt body
     ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.moveTo(width * 0.2, height * 0.1); // top left of collar
-    ctx.lineTo(width * 0.4, height * 0.1); // left collar
-    ctx.lineTo(width * 0.45, height * 0.2); // left inner collar
-    ctx.lineTo(width * 0.55, height * 0.2); // right inner collar
-    ctx.lineTo(width * 0.6, height * 0.1); // right collar
-    ctx.lineTo(width * 0.8, height * 0.1); // top right of collar
-    ctx.lineTo(width * 0.9, height * 0.3); // sleeve right
-    ctx.lineTo(width * 0.8, height * 0.4); // under sleeve right
-    ctx.lineTo(width * 0.8, height * 0.9); // bottom right
-    ctx.lineTo(width * 0.2, height * 0.9); // bottom left
-    ctx.lineTo(width * 0.2, height * 0.4); // under sleeve left
-    ctx.lineTo(width * 0.1, height * 0.3); // sleeve left
+    ctx.moveTo(width * 0.2, height * 0.1);
+    ctx.lineTo(width * 0.4, height * 0.1);
+    ctx.lineTo(width * 0.45, height * 0.2);
+    ctx.lineTo(width * 0.55, height * 0.2);
+    ctx.lineTo(width * 0.6, height * 0.1);
+    ctx.lineTo(width * 0.8, height * 0.1);
+    ctx.lineTo(width * 0.9, height * 0.3);
+    ctx.lineTo(width * 0.8, height * 0.4);
+    ctx.lineTo(width * 0.8, height * 0.9);
+    ctx.lineTo(width * 0.2, height * 0.9);
+    ctx.lineTo(width * 0.2, height * 0.4);
+    ctx.lineTo(width * 0.1, height * 0.3);
     ctx.closePath();
     ctx.fill();
     
-    // Add some shading for 3D effect
     ctx.fillStyle = 'rgba(0,0,0,0.05)';
     ctx.beginPath();
     ctx.moveTo(width * 0.2, height * 0.4);
@@ -151,7 +139,6 @@ const CustomDesign = () => {
     ctx.closePath();
     ctx.fill();
     
-    // Add a simple collar line
     ctx.strokeStyle = 'rgba(0,0,0,0.1)';
     ctx.lineWidth = 2;
     ctx.beginPath();
@@ -160,8 +147,7 @@ const CustomDesign = () => {
     ctx.lineTo(width * 0.55, height * 0.2);
     ctx.stroke();
   };
-  
-  // Handle mouse events for logo dragging
+
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!logoImage) return;
     
@@ -172,7 +158,6 @@ const CustomDesign = () => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     
-    // Check if the click is within the logo area
     const distance = Math.sqrt(
       Math.pow(x - logoPosition.x, 2) + Math.pow(y - logoPosition.y, 2)
     );
@@ -185,7 +170,7 @@ const CustomDesign = () => {
       });
     }
   };
-  
+
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!isDragging || !logoImage) return;
     
@@ -203,14 +188,12 @@ const CustomDesign = () => {
     
     renderCanvas();
   };
-  
+
   const handleMouseUp = () => {
     setIsDragging(false);
   };
-  
-  // Add custom design to cart
+
   const addDesignToCart = () => {
-    // Create a product-like object for the custom design
     const customProduct = {
       id: `custom-${Date.now()}`,
       name: 'Custom Designed T-Shirt',
@@ -230,12 +213,11 @@ const CustomDesign = () => {
       description: "Your custom designed t-shirt has been added to cart.",
     });
   };
-  
-  // Initialize canvas and update on any design change
+
   useEffect(() => {
     renderCanvas();
   }, [tshirtColor, textInput, textColor, fontSize, fontFamily, logoImage, logoScale]);
-  
+
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="text-center mb-12">
@@ -249,7 +231,6 @@ const CustomDesign = () => {
       </div>
       
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        {/* Preview canvas */}
         <div className="bg-gray-50 rounded-xl p-6 flex items-center justify-center">
           <div className="tshirt-canvas-container">
             <canvas 
@@ -270,7 +251,6 @@ const CustomDesign = () => {
           </div>
         </div>
         
-        {/* Design controls */}
         <div className="controls-container">
           <Tabs defaultValue="color">
             <TabsList className="grid grid-cols-4 mb-6">
@@ -283,7 +263,7 @@ const CustomDesign = () => {
                 <span>Text</span>
               </TabsTrigger>
               <TabsTrigger value="image" className="flex items-center gap-2">
-                <Image className="h-4 w-4" />
+                <ImageIcon className="h-4 w-4" />
                 <span>Image</span>
               </TabsTrigger>
               <TabsTrigger value="save" className="flex items-center gap-2">
@@ -292,7 +272,6 @@ const CustomDesign = () => {
               </TabsTrigger>
             </TabsList>
             
-            {/* Color tab */}
             <TabsContent value="color" className="space-y-6">
               <div>
                 <h3 className="text-lg font-medium mb-4">Choose T-Shirt Color</h3>
@@ -319,7 +298,6 @@ const CustomDesign = () => {
               </div>
             </TabsContent>
             
-            {/* Text tab */}
             <TabsContent value="text" className="space-y-6">
               <div className="space-y-4">
                 <div>
@@ -387,7 +365,6 @@ const CustomDesign = () => {
               </div>
             </TabsContent>
             
-            {/* Image tab */}
             <TabsContent value="image" className="space-y-6">
               <div className="space-y-4">
                 <div>
@@ -442,7 +419,6 @@ const CustomDesign = () => {
               </div>
             </TabsContent>
             
-            {/* Save tab */}
             <TabsContent value="save" className="space-y-6">
               <div className="space-y-4">
                 <div>
@@ -488,4 +464,3 @@ const CustomDesign = () => {
 };
 
 export default CustomDesign;
-
