@@ -8,10 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { BrushIcon, Type, Image, Palette, Save, ShoppingCart } from 'lucide-react';
-
-// This is a simplified version of a 3D T-shirt designer
-// In a real app, you might use a library like Three.js for true 3D
+import { BrushIcon, Type, Image as ImageIcon, Palette, Save, ShoppingCart } from 'lucide-react';
 
 const CustomDesign = () => {
   // Canvas and design state
@@ -21,7 +18,7 @@ const CustomDesign = () => {
   const [textInput, setTextInput] = useState('');
   const [textColor, setTextColor] = useState('#000000');
   const [fontSize, setFontSize] = useState(30);
-  const [fontFamily, setFontFamily] = useState('Arial');
+  const [fontFamily, setFontFamily] = useState('Helvetica, Times New Roman, sans-serif');
   const [selectedSize, setSelectedSize] = useState('M');
   const [logoImage, setLogoImage] = useState<string | null>(null);
   const [logoPosition, setLogoPosition] = useState({ x: 150, y: 150 });
@@ -44,9 +41,9 @@ const CustomDesign = () => {
   ];
   
   const fonts = [
-    { name: 'Arial', value: 'Arial, sans-serif' },
-    { name: 'Times New Roman', value: '"Times New Roman", serif' },
-    { name: 'Courier New', value: '"Courier New", monospace' },
+    { name: 'Helvetica', value: 'Helvetica, sans-serif' },
+    { name: 'Times New Roman', value: 'Times New Roman, serif' },
+    { name: 'Courier New', value: 'Courier New, monospace' },
     { name: 'Georgia', value: 'Georgia, serif' },
     { name: 'Verdana', value: 'Verdana, sans-serif' },
   ];
@@ -60,13 +57,14 @@ const CustomDesign = () => {
     
     const reader = new FileReader();
     reader.onload = (event) => {
-      if (event.target?.result) {
+      const result = event.target?.result;
+      if (result) {
         const img = new Image();
         img.onload = () => {
-          setLogoImage(event.target?.result as string);
+          setLogoImage(result as string);
           renderCanvas();
         };
-        img.src = event.target?.result as string;
+        img.src = result as string;
       }
     };
     reader.readAsDataURL(file);
@@ -263,6 +261,7 @@ const CustomDesign = () => {
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
               onMouseLeave={handleMouseUp}
+              aria-label="T-shirt Design Canvas"
             />
             
             <div className="text-center mt-4 text-sm text-gray-500">
@@ -489,3 +488,4 @@ const CustomDesign = () => {
 };
 
 export default CustomDesign;
+
