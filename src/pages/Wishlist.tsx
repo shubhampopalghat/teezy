@@ -33,7 +33,7 @@ const Wishlist = () => {
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-md mx-auto text-center">
           <Heart className="h-16 w-16 mx-auto text-gray-300 mb-6" />
-          <h1 className="text-3xl font-display font-medium mb-4">Your Wishlist is Empty</h1>
+          <h1 className="text-3xl font-['Helvetica-times-now'] font-medium mb-4">Your Wishlist is Empty</h1>
           <p className="text-gray-600 mb-8">
             You haven't saved any items to your wishlist yet.
             Browse our collection and find something you love!
@@ -51,7 +51,7 @@ const Wishlist = () => {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-display font-medium">Your Wishlist</h1>
+        <h1 className="text-3xl font-['Helvetica-times-now'] font-medium">Your Wishlist</h1>
         <span className="text-gray-500">{wishlist.length} {wishlist.length === 1 ? 'item' : 'items'}</span>
       </div>
       

@@ -202,7 +202,7 @@ const Admin = () => {
   
   return (
     <div className="container mx-auto px-4 py-12">
-      <h1 className="text-3xl font-display font-medium mb-8">Admin Dashboard</h1>
+      <h1 className="text-3xl font-['Helvetica-times-now'] font-medium mb-8">Admin Dashboard</h1>
       
       <Tabs defaultValue="products">
         <TabsList className="grid w-full grid-cols-3 mb-8">

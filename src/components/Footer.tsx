@@ -10,7 +10,7 @@ const Footer = () => {
       <div className="overflow-hidden py-6 mb-10 border-y border-white/10">
         <div className="flex animate-carousel whitespace-nowrap">
           {Array(8).fill(0).map((_, i) => (
-            <div key={i} className="mx-4 text-4xl font-display text-brand-yellow inline-block">
+            <div key={i} className="mx-4 text-4xl font-['Helvetica-times-now'] text-brand-yellow inline-block">
               Quality Custom Prints
               <span className="mx-4">•</span>
               Sustainable Materials
@@ -26,7 +26,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand info */}
           <div>
-            <h2 className="text-3xl font-display font-medium mb-6">Teezy</h2>
+            <h2 className="text-3xl font-['Helvetica-times-now'] font-medium mb-6">Teezy</h2>
             <ul className="space-y-4 text-gray-400">
               <li className="flex items-start gap-2">
                 <span>📞</span>

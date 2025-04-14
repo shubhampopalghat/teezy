@@ -111,7 +111,7 @@ const Shop = () => {
     <div className="container mx-auto px-4 py-12">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
         <div>
-          <h1 className="text-3xl font-display font-medium mb-2">Shop Collection</h1>
+          <h1 className="text-3xl font-['Helvetica-times-now'] font-medium mb-2">Shop Collection</h1>
           <p className="text-gray-600">Discover our range of premium t-shirts for every style</p>
         </div>
         

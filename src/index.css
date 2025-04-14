@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Helvetica:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -89,19 +88,49 @@
 @layer base {
   * {
     @apply border-border;
+    cursor: none;
   }
 
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-['Helvetica'];
   }
 
   h1, h2, h3, h4 {
-    @apply font-display;
+    @apply font-['Helvetica'];
   }
 }
 
+/* Custom Cursor Styles */
+.cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  background-color: #FFD700; /* Yellow color */
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease;
+}
+
+.cursor-follower {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background-color: #FFD700; /* Yellow color */
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.2s ease;
+}
+
+.cursor.hover,
+.cursor-follower.hover {
+  transform: scale(1.5);
+  background-color: #FFA500; /* Darker yellow on hover */
+}
+
 .glass-effect {
-  @apply bg-white/10 backdrop-blur-lg border border-white/20;
+  @apply bg-white/35 backdrop-blur-lg border border-white/10;
 }
 
 .carousel-container {

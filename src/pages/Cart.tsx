@@ -45,7 +45,7 @@ const Cart = () => {
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-md mx-auto text-center">
           <ShoppingBag className="h-16 w-16 mx-auto text-gray-300 mb-6" />
-          <h1 className="text-3xl font-display font-medium mb-4">Your Cart is Empty</h1>
+          <h1 className="text-3xl font-['Helvetica-times-now'] font-medium mb-4">Your Cart is Empty</h1>
           <p className="text-gray-600 mb-8">
             Looks like you haven't added any items to your cart yet.
             Browse our collection and find something you'll love!
@@ -63,7 +63,7 @@ const Cart = () => {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-display font-medium">Your Cart</h1>
+        <h1 className="text-3xl font-['Helvetica-times-now'] font-medium">Your Cart</h1>
         <span className="text-gray-500">{cart.length} {cart.length === 1 ? 'item' : 'items'}</span>
       </div>
       

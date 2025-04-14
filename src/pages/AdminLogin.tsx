@@ -82,7 +82,7 @@ const AdminLogin = () => {
               <ShieldCheck className="h-8 w-8 text-brand-yellow" />
             </div>
           </div>
-          <h1 className="text-3xl font-display font-medium mb-2 font-helvetica">Administrator Access</h1>
+          <h1 className="text-3xl font-['Helvetica-times-now'] font-medium mb-2 font-helvetica">Administrator Access</h1>
           <p className="text-gray-600">Sign in to manage your products and orders</p>
         </div>
         

@@ -161,7 +161,7 @@ const ProductDetail = () => {
               )}
             </div>
             
-            <h1 className="text-3xl font-display font-medium mb-3">{product.name}</h1>
+            <h1 className="text-3xl font-['Helvetica-times-now'] font-medium mb-3">{product.name}</h1>
             <p className="text-gray-600">{product.description}</p>
           </div>
           

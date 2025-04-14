@@ -68,11 +68,11 @@ const Home = () => {
   return (
     <main>
       {/* Hero section */}
-      <section className="relative bg-gradient-to-r from-slate-50 to-slate-100 overflow-hidden">
-        <div className="container mx-auto px-4 py-20 md:py-32">
+      <section className="relative bg-gradient-to-r from-slate-50 to-slate-100 overflow-hidden ">
+        <div className="container mx-auto px-4 py-5 md:py-12">
           <div className="flex flex-col lg:flex-row items-center">
             <div className="lg:w-1/2 lg:pr-12 mb-10 lg:mb-0">
-              <h1 className="text-5xl md:text-6xl font-display font-medium leading-tight mb-6">
+              <h1 className="text-5xl md:text-6xl font-['Helvetica-times-now'] font-medium leading-tight mb-6">
                 Custom Printed <br />
                 <span className="text-brand-yellow">T-Shirts</span> Online
               </h1>
@@ -128,7 +128,7 @@ const Home = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-display font-medium">Latest Arrivals</h2>
+            <h2 className="text-3xl font-['Helvetica-times-now'] font-medium">Latest Arrivals</h2>
             <Link to="/shop" className="text-brand-yellow hover:underline flex items-center">
               View All <ChevronRight className="ml-1 h-4 w-4" />
             </Link>
@@ -213,7 +213,7 @@ const Home = () => {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center mb-8">
-            <h2 className="text-3xl font-display font-medium">Featured Products</h2>
+            <h2 className="text-3xl font-['Helvetica-times-now'] font-medium">Featured Products</h2>
             <Link to="/shop" className="text-brand-yellow hover:underline flex items-center">
               View All <ChevronRight className="ml-1 h-4 w-4" />
             </Link>
@@ -277,7 +277,7 @@ const Home = () => {
             <div className="inline-block px-4 py-1 border-2 border-brand-yellow rounded-full text-brand-yellow text-sm mb-4">
               Let's Talk
             </div>
-            <h2 className="text-4xl md:text-5xl font-display font-medium mb-6">
+            <h2 className="text-4xl md:text-5xl font-['Helvetica-times-now'] font-medium mb-6">
               Make Your Custom <span className="text-brand-yellow">Order</span>
             </h2>
             <p className="text-gray-300 mb-8">
@@ -302,7 +302,7 @@ const Home = () => {
               <div className="inline-block px-4 py-1 border-2 border-brand-yellow rounded-full text-gray-600 text-sm mb-4">
                 Contact Us
               </div>
-              <h2 className="text-4xl font-display font-medium">
+              <h2 className="text-4xl font-['Helvetica-times-now'] font-medium">
                 Need Help? <span className="text-brand-yellow">Get in Touch</span>
               </h2>
             </div>

@@ -11,11 +11,11 @@ const Navbar = () => {
   const { isAuthenticated, user, logout } = useAuth(); // Add logout to the destructured values
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
-      <div className="container mx-auto px-4">
+    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm h-20 items-center flex">
+      <div className="container mx-auto px-4 items-center">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center gap-10">
-            <Link to="/" className="text-2xl font-display font-semibold">
+            <Link to="/" className="text-2xl font-['Helvetica-times-now'] font-semibold">
               Teezy
             </Link>
             
