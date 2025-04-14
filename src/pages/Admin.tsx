@@ -9,9 +9,10 @@ import { toast } from "@/components/ui/use-toast";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
 import { mockProducts } from '@/data/mockProducts';
 import { Product } from '@/types/product';
-import { PlusCircle, Package, Users, ShoppingBag, Edit, Trash2 } from 'lucide-react';
+import { PlusCircle, Package, Users, ShoppingBag, Edit, Trash2, Upload } from 'lucide-react';
 
 const Admin = () => {
   const { user, isAuthenticated } = useAuth();
@@ -26,9 +27,14 @@ const Admin = () => {
     discount: 20,
     image: '',
     category: 'men',
-    tag: '',
+    subCategory: 'regular',
+    tag: 'New',
     inStock: true,
+    sizes: [],
+    colors: [],
   });
+  
+  const [imagePreview, setImagePreview] = useState<string>('');
   
   useEffect(() => {
     // Check if user is admin
@@ -42,12 +48,33 @@ const Admin = () => {
     }
   }, [isAuthenticated, user, navigate]);
   
+  // Calculate discounted price when price or discount changes
+  useEffect(() => {
+    if (newProduct.price && newProduct.discount) {
+      const discountAmount = (newProduct.price * (newProduct.discount / 100));
+      const calculatedDiscountedPrice = newProduct.price - discountAmount;
+      setNewProduct(prev => ({
+        ...prev,
+        discountedPrice: Math.round(calculatedDiscountedPrice)
+      }));
+    }
+  }, [newProduct.price, newProduct.discount]);
+  
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setNewProduct({
-      ...newProduct,
-      [name]: value,
-    });
+    
+    // For price and discount, convert to numbers
+    if (name === 'price' || name === 'discount') {
+      setNewProduct({
+        ...newProduct,
+        [name]: Number(value),
+      });
+    } else {
+      setNewProduct({
+        ...newProduct,
+        [name]: value,
+      });
+    }
   };
   
   const handleSelectChange = (name: string, value: string) => {
@@ -63,6 +90,46 @@ const Admin = () => {
       ...newProduct,
       [name]: checked,
     });
+  };
+  
+  const handleSizeToggle = (size: string) => {
+    const sizes = newProduct.sizes || [];
+    const updatedSizes = sizes.includes(size)
+      ? sizes.filter(s => s !== size)
+      : [...sizes, size];
+    
+    setNewProduct({
+      ...newProduct,
+      sizes: updatedSizes,
+    });
+  };
+  
+  const handleColorToggle = (color: string) => {
+    const colors = newProduct.colors || [];
+    const updatedColors = colors.includes(color)
+      ? colors.filter(c => c !== color)
+      : [...colors, color];
+    
+    setNewProduct({
+      ...newProduct,
+      colors: updatedColors,
+    });
+  };
+  
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        const imageUrl = reader.result as string;
+        setImagePreview(imageUrl);
+        setNewProduct({
+          ...newProduct,
+          image: imageUrl,
+        });
+      };
+      reader.readAsDataURL(file);
+    }
   };
   
   const handleSubmit = (e: React.FormEvent) => {
@@ -92,6 +159,8 @@ const Admin = () => {
       tag: newProduct.tag,
       inStock: newProduct.inStock || true,
       rating: 5.0,
+      sizes: newProduct.sizes,
+      colors: newProduct.colors,
     };
     
     // Add to products
@@ -106,9 +175,13 @@ const Admin = () => {
       discount: 20,
       image: '',
       category: 'men',
-      tag: '',
+      subCategory: 'regular',
+      tag: 'New',
       inStock: true,
+      sizes: [],
+      colors: [],
     });
+    setImagePreview('');
     
     toast({
       title: "Success",
@@ -123,6 +196,9 @@ const Admin = () => {
       description: "Product has been deleted successfully.",
     });
   };
+  
+  const availableSizes = ['S', 'M', 'L', 'XL', 'XXL'];
+  const availableColors = ['Black', 'White', 'Red', 'Blue', 'Green', 'Yellow'];
   
   return (
     <div className="container mx-auto px-4 py-12">
@@ -233,7 +309,7 @@ const Admin = () => {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="price">Price *</Label>
+                    <Label htmlFor="price">Original Price *</Label>
                     <Input
                       id="price"
                       name="price"
@@ -245,51 +321,72 @@ const Admin = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="discountedPrice">Discounted Price</Label>
-                    <Input
-                      id="discountedPrice"
-                      name="discountedPrice"
-                      type="number"
-                      value={newProduct.discountedPrice}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="discount">Discount %</Label>
+                    <Label htmlFor="discount">Discount % *</Label>
                     <Input
                       id="discount"
                       name="discount"
                       type="number"
                       value={newProduct.discount}
                       onChange={handleInputChange}
-                    />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="tag">Tag</Label>
-                    <Input
-                      id="tag"
-                      name="tag"
-                      value={newProduct.tag}
-                      onChange={handleInputChange}
-                      placeholder="New, Sale, etc."
+                      required
                     />
                   </div>
                 </div>
                 
                 <div className="space-y-2">
-                  <Label htmlFor="image">Image URL *</Label>
+                  <Label htmlFor="discountedPrice">Discounted Price (Calculated)</Label>
                   <Input
-                    id="image"
-                    name="image"
-                    value={newProduct.image}
-                    onChange={handleInputChange}
-                    placeholder="https://example.com/image.jpg"
-                    required
+                    id="discountedPrice"
+                    name="discountedPrice"
+                    type="number"
+                    value={newProduct.discountedPrice}
+                    readOnly
+                    className="bg-gray-50"
                   />
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="image">Product Image *</Label>
+                  <div className="flex items-center gap-4">
+                    <label className="flex items-center justify-center w-24 h-24 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:border-gray-400 bg-gray-50">
+                      <input
+                        type="file"
+                        id="image"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={handleImageChange}
+                      />
+                      {imagePreview ? (
+                        <img src={imagePreview} alt="Preview" className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="flex flex-col items-center justify-center text-gray-400">
+                          <Upload size={20} />
+                          <span className="text-xs mt-1">Upload</span>
+                        </div>
+                      )}
+                    </label>
+                    
+                    <div className="flex-1">
+                      <Input
+                        placeholder="Or enter image URL"
+                        value={!imagePreview ? newProduct.image : ''}
+                        onChange={(e) => setNewProduct({...newProduct, image: e.target.value})}
+                        disabled={!!imagePreview}
+                      />
+                      {imagePreview && (
+                        <button 
+                          type="button" 
+                          className="text-sm text-red-500 mt-1"
+                          onClick={() => {
+                            setImagePreview('');
+                            setNewProduct({...newProduct, image: ''});
+                          }}
+                        >
+                          Clear image
+                        </button>
+                      )}
+                    </div>
+                  </div>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-4">
@@ -334,14 +431,82 @@ const Admin = () => {
                   </div>
                 </div>
                 
+                <div className="space-y-2">
+                  <Label htmlFor="tag">Tag</Label>
+                  <Select 
+                    value={newProduct.tag} 
+                    onValueChange={(value) => handleSelectChange('tag', value)}
+                  >
+                    <SelectTrigger id="tag">
+                      <SelectValue placeholder="Select tag" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="New">New</SelectItem>
+                      <SelectItem value="Sale">Sale</SelectItem>
+                      <SelectItem value="Hot">Hot</SelectItem>
+                      <SelectItem value="Trending">Trending</SelectItem>
+                      <SelectItem value="Exclusive">Exclusive</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div className="space-y-2">
+                  <Label>Available Sizes</Label>
+                  <div className="flex flex-wrap gap-3">
+                    {availableSizes.map(size => (
+                      <label 
+                        key={size} 
+                        className={`
+                          cursor-pointer border rounded-md px-3 py-1 text-sm
+                          ${(newProduct.sizes || []).includes(size) 
+                            ? 'bg-brand-yellow text-white border-brand-yellow' 
+                            : 'bg-white text-gray-700 border-gray-300'}
+                        `}
+                      >
+                        <input
+                          type="checkbox"
+                          className="hidden"
+                          checked={(newProduct.sizes || []).includes(size)}
+                          onChange={() => handleSizeToggle(size)}
+                        />
+                        {size}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="space-y-2">
+                  <Label>Available Colors</Label>
+                  <div className="flex flex-wrap gap-3">
+                    {availableColors.map(color => (
+                      <label 
+                        key={color} 
+                        className={`
+                          cursor-pointer border rounded-md px-3 py-1 text-sm
+                          ${(newProduct.colors || []).includes(color) 
+                            ? 'bg-brand-yellow text-white border-brand-yellow' 
+                            : 'bg-white text-gray-700 border-gray-300'}
+                        `}
+                      >
+                        <input
+                          type="checkbox"
+                          className="hidden"
+                          checked={(newProduct.colors || []).includes(color)}
+                          onChange={() => handleColorToggle(color)}
+                        />
+                        {color}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+                
                 <div className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
+                  <Checkbox
                     id="inStock"
-                    name="inStock"
                     checked={newProduct.inStock}
-                    onChange={handleCheckboxChange}
-                    className="rounded border-gray-300"
+                    onCheckedChange={(checked) => 
+                      setNewProduct({...newProduct, inStock: checked === true})
+                    }
                   />
                   <Label htmlFor="inStock">In Stock</Label>
                 </div>

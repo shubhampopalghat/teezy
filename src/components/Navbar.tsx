@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import { Search, Heart, ShoppingCart, User, Menu, X } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useAuth } from '@/context/AuthContext';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // This would be connected to auth state
+  const { isAuthenticated, user } = useAuth(); // Use the auth context
 
   return (
     <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md shadow-sm">
@@ -28,6 +29,11 @@ const Navbar = () => {
               <Link to="/custom" className="text-sm font-medium text-brand-yellow hover:opacity-80 transition-colors">
                 Get Custom Designs
               </Link>
+              {isAuthenticated && user?.isAdmin && (
+                <Link to="/admin" className="text-sm font-medium hover:text-brand-yellow transition-colors">
+                  Admin
+                </Link>
+              )}
             </nav>
           </div>
           
@@ -41,7 +47,7 @@ const Navbar = () => {
             </div>
             
             <div className="flex items-center gap-3">
-              {!isLoggedIn ? (
+              {!isAuthenticated ? (
                 <Link to="/login">
                   <Button variant="ghost" size="sm" className="hidden md:flex gap-2 hover:text-brand-yellow">
                     <User size={16} />
@@ -89,6 +95,11 @@ const Navbar = () => {
             <Link to="/custom" className="py-2 text-brand-yellow" onClick={() => setIsMenuOpen(false)}>
               Get Custom Designs
             </Link>
+            {isAuthenticated && user?.isAdmin && (
+              <Link to="/admin" className="py-2" onClick={() => setIsMenuOpen(false)}>
+                Admin
+              </Link>
+            )}
             <div className="flex items-center bg-slate-100 rounded-full px-4 py-2 mt-2">
               <Search size={16} className="text-slate-400 mr-2" />
               <Input 
@@ -96,7 +107,7 @@ const Navbar = () => {
                 className="border-none bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0 text-sm"
               />
             </div>
-            {!isLoggedIn && (
+            {!isAuthenticated && (
               <Link to="/login" className="py-2" onClick={() => setIsMenuOpen(false)}>
                 Login
               </Link>
